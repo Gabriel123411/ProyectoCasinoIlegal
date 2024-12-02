@@ -1,7 +1,7 @@
 import os
 import random
 import time
-from colorama import Fore, init
+from colorama import *
 
 class CarreraBuses:
     def __init__(self):
