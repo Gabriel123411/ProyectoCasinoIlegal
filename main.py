@@ -1,5 +1,6 @@
 import sqlite3
 import bcrypt
+import re
 from blackjack import Blackjack
 from poker import Poker
 from tragaperras import Tragaperras
@@ -21,6 +22,17 @@ def registrar_usuario():
         nombre = input("Ingrese su nombre: ")
         mail = input("Ingrese su correo electrónico: ")
         password = input("Ingrese su contraseña: ")
+
+        # Validación de correo electrónico (?)
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", mail):
+            print("Correo electrónico no válido. Intente nuevamente.")
+            continue
+
+        # Validación de contraseña (?)
+        if len(password) < 8:
+            print("La contraseña debe tener al menos 8 caracteres. Intente nuevamente.")
+            continue
+
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         try:
             cursor.execute("INSERT INTO Usuarios (nombre, mail, password) VALUES (?, ?, ?)", (nombre, mail, hashed_password))
@@ -36,6 +48,12 @@ def iniciar_sesion():
     while True:
         mail = input("Ingrese su correo electrónico: ")
         password = input("Ingrese su contraseña: ")
+
+        # Validación de correo electrónico
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", mail):
+            print("Correo electrónico no válido. Intente nuevamente.")
+            continue
+
         cursor.execute("SELECT * FROM Usuarios WHERE mail = ?", (mail,))
         usuario = cursor.fetchone()
         if usuario and bcrypt.checkpw(password.encode('utf-8'), usuario[3]):
