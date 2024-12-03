@@ -7,6 +7,13 @@ def conectar_bd():
     except sqlite3.Error as e:
         print(f"No ha sido posible conectarse con la base de datos: {e}")
 
+def actualizar_saldo(usuario_id, nuevo_saldo):
+    conn = conectar_bd()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Usuarios SET saldo = ? WHERE id_usuario = ?", (nuevo_saldo, usuario_id))
+    conn.commit()
+    conn.close()
+    
 def crear_tablas():
     try:
         with sqlite3.connect('casino.db') as conn:
