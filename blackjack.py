@@ -110,6 +110,7 @@ class Blackjack:
             print(
                 "Reglas del juego: Acércate lo más que puedas a 21 sin pasarte!\n"
                 "El dealer pide cartas hasta llegar a 17.\n"
+                "S = Te plantas / H = Pedir.\n"
                 "Aces cuentas como 1 u 11."
             )
             # Crea y baraja el mazo, reparte dos cartas a cada jugador
